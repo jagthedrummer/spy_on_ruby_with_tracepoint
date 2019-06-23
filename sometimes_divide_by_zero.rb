@@ -10,6 +10,19 @@ rescue
   # lol we failed, who cares?
 end
 
-10.times do
-  puts sometimes_divide_by_zero.class
+trace = TracePoint.new(:raise) do |tp|
+  puts (tp.methods - Kernel.methods)
 end
+
+#10.times do
+  #puts sometimes_divide_by_zero.class
+#end
+#
+
+trace.enable
+
+0 / 0
+
+puts "----------------"
+
+puts (trace.methods - Kernel.methods)
